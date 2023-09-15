@@ -1,0 +1,104 @@
+########################### Training options ###########################
+# Number of examples per mini-batch
+batch_size: 32
+
+# Number of dataloader threads
+num_workers: 64
+
+# Learning rate
+learning_rate: 0.0001
+
+# Decay learning rate by a factor 10 after the following number of epochs
+lr_milestones: [15]
+
+# Directory to save experiment to
+logdir: logs
+
+# Number of epochs to train for
+num_epochs: 25
+
+# Top-left and bottom right coordinates of map region, in meters
+map_extents: [-25., 1., 25., 50.]
+
+# Spacing between adjacent grid cells in the map, in meters
+map_resolution: 0.25
+
+# Log loss to tensorboard every N iterations
+log_interval: 20
+
+# Visualise predictions every N iterations
+vis_interval: 200
+
+# Threshold to treat prediction as positive
+score_thresh: 0.5
+#########################################################################
+
+########################### Nuscenes Option #############################
+# Dataset to train on
+nuscenes_train_dataset: nuscenes
+
+# Name of split used for training
+nuscenes_train_split: train
+
+# Name of split used for validation
+nuscenes_val_split: val
+
+# Root data directory
+nuscenes_dataroot: /s3_data/dataset/nuScenes
+
+# NuScenes dataset version
+nuscenes_version: v1.0-trainval
+
+# Directory containing pregenerated training labels
+nuscenes_label_root: /s3_data/dataset/nuScenes/map-labels-v1.2
+#########################################################################
+
+########################### Argoverse Option ############################
+# Dataset to train on
+argoverse_train_dataset: argoverse
+
+# Name of split used for training
+argoverse_train_split: train
+
+# Name of split used for validation
+argoverse_val_split: val
+
+# Root data directory
+argoverse_dataroot: /s3_data/dataset/av2/argoverse/argoverse-tracking
+
+# Directory containing pregenerated training labels
+argoverse_label_root: /s3_data/dataset/av2/argoverse/map-labels
+#########################################################################
+
+########################### PON Model options ###########################
+# Number of intermediate channels in the transformer layer
+tfm_channels: 64
+
+# Vertical extents of the region of interest, in meters
+ymin: -2
+ymax: 4
+
+# Approximate camera focal length used for constructing transformers
+focal_length: 630.
+
+# Topdown network options
+topdown:
+
+  # Number of feature channels at each layer of the topdown network
+  channels: 128
+
+  # Number of blocks in each layer
+  layers: [4, 4]
+
+  # Upsampling factor in each stage of the topdown network
+  strides: [1, 2]
+
+  # Type of residual block to use [ basic | bottleneck ]
+  blocktype: bottleneck
+#########################################################################
+
+
+
+
+
+
