@@ -1,5 +1,5 @@
 # Semi-Supervised Learning for Visual Bird’s Eye View Semantic Segmentation (ICRA 2024)
-### [Paper](https://arxiv.org/pdf/2308.14525.pdf)
+### [Paper](https://arxiv.org/abs/2308.14525)
 *Junyu Zhu, Lina Liu, Yu Tang, Feng Wen, Wanlong Li, Yong Liu*
 
 ## Setup
