@@ -44,13 +44,13 @@ nuscenes_train_split: train
 nuscenes_val_split: val
 
 # Root data directory
-nuscenes_dataroot: /s3_data/dataset/nuScenes
+nuscenes_dataroot: /media/zjy/datasets3/nuscenes
 
 # NuScenes dataset version
 nuscenes_version: v1.0-trainval
 
 # Directory containing pregenerated training labels
-nuscenes_label_root: /s3_data/dataset/nuScenes/map-labels-v1.2
+nuscenes_label_root: /media/zjy/datasets3/nuscenes/map-labels
 #########################################################################
 
 ########################### Argoverse Option ############################
@@ -64,10 +64,10 @@ argoverse_train_split: train
 argoverse_val_split: val
 
 # Root data directory
-argoverse_dataroot: /s3_data/dataset/av2/argoverse/argoverse-tracking
+argoverse_dataroot: /media/zjy/datasets3/argoverse/argoverse-tracking
 
 # Directory containing pregenerated training labels
-argoverse_label_root: /s3_data/dataset/av2/argoverse/map-labels
+argoverse_label_root: /media/zjy/datasets3/argoverse/map-labels
 #########################################################################
 
 ########################### PON Model options ###########################
