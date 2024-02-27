@@ -93,14 +93,14 @@ class NuScenesMapDataset(Dataset):
             
             if self.labeled_data:  # labeled train data
                 if self.enable_conjoint_rotataion and random.random() > 0.5:
-                    if index < 100: # for testing
+                    if index < 100: # for debugging
                         print('Rotated labeled data! Theta =', float(theta))
                     return image2, label2, mask2, calib  # rotated data
                 else:
                     return image1, label1, mask1, calib  # original data
             else:  # unlabeled train data
                 if self.enable_conjoint_rotataion and random.random() > 0.5:
-                    if index < 100: # for testing
+                    if index < 100: # for debugging
                         print('Rotated unlabeled data! Theta =', float(theta))
                     return image2, calib  # rotated data
                 else:
@@ -134,7 +134,7 @@ class NuScenesMapDataset(Dataset):
     def conjoint_rotation(self, image, bev_label, mask, K):  # h x w x 3, n x 196 x 200, 196 x 200, 3 x 3
         fx, cx = K[0, 0], K[0, 2]
         fy, cy = K[1, 1], K[1, 2]
-        theta = np.random.uniform(-35, +35)  # default: -20 degrees ~ +20 degrees
+        theta = np.random.uniform(-35, +35)  # default: -35 degrees ~ +35 degrees
 
         cosTheta = math.cos(theta * math.pi / 180)
         sinTheta = math.sin(theta * math.pi / 180)

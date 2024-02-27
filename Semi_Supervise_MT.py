@@ -101,7 +101,7 @@ def train(labeled_train_loader1, train_sampler1, unlabeled_train_loader2, train_
         
         translated_bev_feature2, translated_bev_seg2 = bev_feature2.flip((-1,)), bev_seg2.flip((-1,))
         
-        flipped_bev_feature2, flipped_bev_seg2 = bev_seg_student_model(flipped_unlabeled_image, flipped_unlabeled_calib, scale)  # b x 256 x 200 x 200, b x n x 196 x 200
+        flipped_bev_feature2, flipped_bev_seg2 = bev_seg_student_model(flipped_unlabeled_image, flipped_unlabeled_calib)  # b x 256 x 200 x 200, b x n x 196 x 200
         
         bevSeg_consistency_loss = 0.002 * torch.square(translated_bev_seg2.sigmoid() - flipped_bev_seg2.sigmoid()).mean()  # semantic segmentation consistency loss
         # print(translated_bev_feature2.shape, ',', flipped_bev_feature2.shape)
@@ -130,8 +130,7 @@ def train(labeled_train_loader1, train_sampler1, unlabeled_train_loader2, train_
                   '\n bevSeg_consistency_loss =', float(bevSeg_consistency_loss),
                   '\n bevFeat_consistency_loss =', float(bevFeat_consistency_loss),
                   '\n alpha =', alpha,
-                   '\n lr =', optimizer.param_groups[0]['lr'],
-                  '\n scale =', scale)
+                   '\n lr =', optimizer.param_groups[0]['lr'])
             # summary.add_scalar('train/segmentation_loss', float(segmentation_loss), iteration)
         
         # Update confusion matrix
