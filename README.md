@@ -68,6 +68,7 @@ Train the proposed semi-sup(2.5% labeled data + 97.5% unlabeled data) model:
 CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 torchrun --nproc_per_node=8 Semi_Supervise_MT.py \
 --img_size 800 600 \
 --label_percent 0.025 \
+--enable_conjoint_rotataion \
 --tag semiSup_p0.025_600x800
 ```
 

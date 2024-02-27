@@ -18,7 +18,7 @@ from ..utils import decode_binary_labels
 
 
 class NuScenesMapDataset(Dataset):
-    def __init__(self, nuscenes, map_root, image_size=(800, 600), scene_names=None, is_train=True, labeled_data=True, label_percent=1.0):
+    def __init__(self, nuscenes, map_root, image_size=(800, 600), scene_names=None, is_train=True, labeled_data=True, label_percent=1.0, enable_conjoint_rotataion=False):
 
         self.nuscenes = nuscenes
         self.map_root = os.path.expandvars(map_root)
@@ -31,6 +31,7 @@ class NuScenesMapDataset(Dataset):
         self.is_train = is_train
         self.labeled_data = labeled_data
         self.label_percent = label_percent
+        self.enable_conjoint_rotataion = enable_conjoint_rotataion
         
         # Allow PIL to load partially corrupted images
         # (otherwise training crashes at the most inconvenient possible times!)
@@ -91,20 +92,20 @@ class NuScenesMapDataset(Dataset):
             calib = torch.from_numpy(calib.astype(np.float32))  # 3 x 3
             
             if self.labeled_data:  # labeled train data
-                if random.random() > 0.5:
-                    return image1, label1, mask1, calib  # original data
-                else:
+                if self.enable_conjoint_rotataion and random.random() > 0.5:
                     if index < 100: # for testing
                         print('Rotated labeled data! Theta =', float(theta))
                     return image2, label2, mask2, calib  # rotated data
-            else:  # unlabeled train data
-                if random.random() > 0.5:
-                    return image1, calib  # original data
                 else:
+                    return image1, label1, mask1, calib  # original data
+            else:  # unlabeled train data
+                if self.enable_conjoint_rotataion and random.random() > 0.5:
                     if index < 100: # for testing
                         print('Rotated unlabeled data! Theta =', float(theta))
-                    return image2, calib  # original data
-                
+                    return image2, calib  # rotated data
+                else:
+                    return image1, calib  # original data
+
         image1 = cv2.resize(image1, tuple(self.image_size))  # h x w x 3
         image1 = torch.from_numpy(image1.transpose(2, 0, 1).astype(np.float32)) / 255.0  # 3 x h x w
         

@@ -314,6 +314,7 @@ def main():
     if torch.distributed.get_rank() == 0:
         print('num of trainable parameters =', sum(p.numel() for p in bev_seg_model.parameters() if p.requires_grad))
 
+    config['enable_conjoint_rotataion'] = False
     labeled_train_data, unlabeled_train_data,test_data = build_semiNu_datasets(config)
 
     train_sampler1 = DistributedSampler(labeled_train_data)

@@ -303,6 +303,7 @@ def main():
     parser.add_argument('--img_size', help='resolution of input img', nargs="+", type=int, default=[800, 600])  # 224 x 448, 600 x 800, 600 x 960
     parser.add_argument('--dataset', choices=['nuscenes', 'argoverse', 'nu_ar', 'ar_nu'], default='nuscenes', help='dataset to train on')
     parser.add_argument('--label_percent', default=0.025, help='percent of labels', type=float, choices=[0.025, 0.05, 0.10, 0.20, 0.40, 0.50])  # 2.5%, 5.0%, 20%, 40%, 100%
+    parser.add_argument("--enable_conjoint_rotataion", help="if set, enable conjoint rotation augmentataion", action="store_true", default=False)
 
     args = parser.parse_args()
 
@@ -344,6 +345,7 @@ def main():
         # print('test: torch.rand(1) =', torch.randn(1))
         print('num of trainable parameters =', sum(p.numel() for p in bev_seg_teacher_model.parameters() if p.requires_grad))
 
+    config['enable_conjoint_rotataion'] = args.enable_conjoint_rotataion
     labeled_train_data, unlabeled_train_data,test_data = build_semiNu_datasets(config)
 
     train_sampler1 = DistributedSampler(labeled_train_data)

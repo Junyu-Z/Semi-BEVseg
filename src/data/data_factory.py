@@ -26,9 +26,11 @@ def build_semiNu_datasets(config):
     print('==> Loading NuScenes training dataset...')
     nuscenes = NuScenes(config.nuscenes_version, os.path.expandvars(config.nuscenes_dataroot))
     nuscenes_labeled_train_data = NuScenesMapDataset(nuscenes, config.nuscenes_label_root, config.img_size, TRAIN_SCENES, 
-                                                     is_train=True, labeled_data=True, label_percent=config.label_percent)
+                                                     is_train=True, labeled_data=True, label_percent=config.label_percent, 
+                                                     enable_conjoint_rotataion=config.enable_conjoint_rotataion)
     nuscenes_unlabeled_train_data = NuScenesMapDataset(nuscenes, config.nuscenes_label_root, config.img_size, TRAIN_SCENES, 
-                                                       is_train=True, labeled_data=False, label_percent=config.label_percent)
+                                                       is_train=True, labeled_data=False, label_percent=config.label_percent,
+                                                       enable_conjoint_rotataion=config.enable_conjoint_rotataion)
     
     print('==> Loading NuScenes testing dataset...')
     nuscenes_test_data = NuScenesMapDataset(nuscenes, config.nuscenes_label_root, config.img_size, VAL_SCENES, is_train=False)
